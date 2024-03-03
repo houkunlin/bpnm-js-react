@@ -1,0 +1,165 @@
+.hkl-bpmn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+
+  a:link {
+    text-decoration: none;
+  }
+
+  .hkl-bpmn-content {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    min-height: 300px;
+
+    .hkl-bpmn-content-left {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    .hkl-bpmn-content-canvas {
+      /* 中间的流程图画布样式 */
+      flex: 1;
+      width: 100%;
+      height: 100%;
+
+      .djs-minimap {
+        /* 重置迷你图的位置 */
+        cursor: pointer;
+
+        &:not(.open) .toggle::before {
+          content: '缩略图';
+        }
+
+        &.open .toggle::before {
+          content: '缩略图';
+        }
+      }
+
+      .bjs-container .bjs-powered-by {
+        /* 隐藏画布右下角的官方图标 */
+        //display: none;
+        //z-index: 20 !important;
+      }
+
+      .bjs-breadcrumbs {
+        li {
+          display: inline-block;
+        }
+      }
+    }
+
+    .hkl-bpmn-content-control {
+      /* 自定义工具栏样式 */
+
+      .io-zoom-controls {
+        position: absolute;
+        right: 10px;
+        bottom: 50px;
+
+        .io-zoom-reset {
+          margin-bottom: 10px;
+        }
+      }
+
+      .io-import-export {
+        position: absolute;
+        bottom: 10px;
+        left: 20px;
+      }
+
+      .io-control {
+        padding: 5px;
+        background: #fafafa;
+        border: solid 1px #e0e0e0;
+        border-radius: 2px;
+
+        hr {
+          width: 22px;
+          border: none;
+          border-top: solid 1px #ddd;
+        }
+      }
+
+      .io-control-list {
+        margin: 0;
+        padding: 5px;
+        list-style: none;
+
+        a,
+        a:visited,
+        button {
+          padding: 0;
+          color: #555;
+          font-size: 22px;
+          line-height: 26px;
+          background: none;
+          border: none;
+          outline: none;
+          cursor: pointer;
+
+          &:hover {
+            color: #333;
+          }
+
+          &.inactive {
+            color: #333;
+            cursor: default;
+          }
+        }
+
+        &.io-horizontal,
+        &.io-horizontal li {
+          display: inline-block;
+        }
+
+        &.io-horizontal {
+          li + li {
+            margin-left: 10px;
+          }
+
+          a {
+            padding: 2px;
+          }
+        }
+      }
+    }
+
+    .hkl-bpmn-left-right-line {
+      width: 4px;
+      height: 100%;
+      background: #ccc;
+      cursor: col-resize;
+
+      &:hover {
+        cursor: col-resize;
+      }
+    }
+
+    .hkl-bpmn-content-properties-panel-parent {
+      /* 右侧属性面板样式 */
+      position: relative;
+      display: block;
+      height: 100%;
+      overflow: auto;
+      background-color: #f8f8f8;
+      //border-left: 1px solid #ccc;
+
+      &:empty {
+        display: none;
+      }
+
+      > .djs-properties-panel {
+        min-height: 100%;
+        padding-bottom: 70px;
+      }
+    }
+  }
+}
