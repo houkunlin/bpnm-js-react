@@ -24,7 +24,7 @@ import {
 import EmbeddedComments from 'bpmn-js-embedded-comments';
 import CamundaExtensionModule from 'bpmn-moddle';
 // @ts-ignore
-import { useMemoizedFn } from 'ahooks';
+import { useDeepCompareEffect, useMemoizedFn } from 'ahooks';
 import camundaModdleDescriptors from 'camunda-bpmn-moddle/resources/camunda.json';
 import classNames from 'classnames';
 import { debounce, isNil, omit, pick } from 'lodash';
@@ -160,7 +160,7 @@ const Bpmn = forwardRef<
     };
   }, []);
 
-  useEffect(() => {
+  useDeepCompareEffect(() => {
     if (request) {
       request(params)
         .then(doImportXml)
