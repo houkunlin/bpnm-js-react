@@ -26,8 +26,12 @@ export class BpmnInstance {
   }
 
   getProcessName() {
-    const rootElement = (this.bpmnViewer.get('canvas') as any).getRootElement();
+    const rootElement = this.canvas().getRootElement();
     return rootElement?.businessObject?.name || 'diagram';
+  }
+
+  getBpmnXml(options: SaveXMLOptions = { format: true }) {
+    return this.bpmnViewer.saveXML(options).then(({ xml }) => xml ?? '');
   }
 
   saveBpmnXml(options: SaveXMLOptions = { format: true }) {
