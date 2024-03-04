@@ -178,7 +178,7 @@ const Bpmn = forwardRef<
           if (files.length >= 1) {
             const reader = new FileReader();
             reader.onload = (e) => {
-              bpmnInstance.importBpmnFile(e.target?.result as string);
+              bpmnInstance.importBpmnXml(e.target?.result as string);
             };
             reader.readAsText(files[0]);
           }

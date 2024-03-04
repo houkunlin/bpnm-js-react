@@ -128,7 +128,7 @@ function BpmnToolBar(props: {
       items.push(
         <button title="创建空 BPMN 2.0 模型">
           <FileAddOutlined
-            onClick={() => bpmnInstance.importBpmnFile(EmptyBpmnXmlDiagram)}
+            onClick={() => bpmnInstance.importBpmnXml(EmptyBpmnXmlDiagram)}
           />
         </button>,
       );

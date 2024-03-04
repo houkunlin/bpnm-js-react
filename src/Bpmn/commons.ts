@@ -70,7 +70,7 @@ export class BpmnInstance {
     this.inputRef.current?.click();
   }
 
-  importBpmnFile(xml: string) {
+  importBpmnXml(xml: string) {
     return this.importXmlFunc(xml);
   }
 
