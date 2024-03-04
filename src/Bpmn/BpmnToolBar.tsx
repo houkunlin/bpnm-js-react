@@ -19,6 +19,7 @@ import {
 } from '@houkunlin/bpmn-js-react';
 import { useFullscreen } from 'ahooks';
 import classNames from 'classnames';
+import { isNil } from 'lodash';
 import React, { useMemo, useState } from 'react';
 import { EmptyBpmnXmlDiagram } from '../utils';
 import './styles/viewer-toolbar.less';
@@ -39,20 +40,26 @@ function BpmnToolBar(props: {
   );
   const { bpmnInstance } = props;
 
+  const simulationModule = useMemo(() => {
+    try {
+      return bpmnInstance.get('toggleMode');
+    } catch (e) {}
+    return undefined;
+  }, [bpmnInstance]);
+
   const rightBottom = useMemo(() => {
     const items = [];
-    if (toolBar.simulation) {
+    if (toolBar.simulation && !isNil(simulationModule)) {
       items.push(
         <button title={isSimulation ? '退出流程模拟' : '流程模拟'}>
           <BugOutlined
             style={{ color: isSimulation ? '#1890ff' : undefined }}
             onClick={() => {
-              const mode = bpmnInstance.get('toggleMode');
               const newValue = !isSimulation;
               if (isSimulation) {
-                mode.toggleMode(newValue);
+                simulationModule.toggleMode(newValue);
               } else {
-                mode.toggleMode(newValue);
+                simulationModule.toggleMode(newValue);
               }
               setIsSimulation(newValue);
             }}
@@ -109,7 +116,7 @@ function BpmnToolBar(props: {
       items.push(<hr />);
     }
     return items.splice(0, items.length - 1);
-  }, [toolBar, isFullscreen, isSimulation]);
+  }, [toolBar, isFullscreen, isSimulation, simulationModule]);
   const leftBottom = useMemo(() => {
     const items = [];
     if (toolBar.openFile) {
