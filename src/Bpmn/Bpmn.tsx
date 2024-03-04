@@ -35,6 +35,7 @@ import {
   BpmnProps,
   BpmnPropsKeys,
   calcToolBarValue,
+  getModule,
   initBpmnViewerEmptyDiagram,
 } from './commons';
 import i18n from './i18n';
@@ -88,7 +89,9 @@ const Bpmn = forwardRef<
       try {
         if (xml.startsWith('<xml') || xml.startsWith('<?xml ')) {
           const value = await bpmnViewer.importXML(xml);
-          (bpmnViewer.get('canvas') as any).zoom('fit-viewport', 'auto');
+          getModule(bpmnViewer, 'canvas').then((v) =>
+            v.zoom('fit-viewport', 'auto'),
+          );
           theProps.onLoadSuccess?.(value, bpmnViewer);
           return value;
         }
@@ -125,18 +128,19 @@ const Bpmn = forwardRef<
       child.style.removeProperty('z-index');
     }
     if (propertiesPanelRef.current) {
-      (bpmnViewer.get('propertiesPanel') as any).attachTo(
-        propertiesPanelRef.current,
+      getModule(bpmnViewer, 'propertiesPanel').then((v) =>
+        v.attachTo(propertiesPanelRef.current),
       );
       // bpmnViewer.on('propertiesPanel.attach', () => {
       //   // 如果存在URL传入到当前组件，则加载这个URL的BPMN文件
       // });
     }
-    const comments = bpmnViewer.get('comments') as any;
-    bpmnViewer.on('element.click', (e: any) => {
-      if (`${e.element?.type}`.endsWith('Process')) {
-        comments.collapseAll();
-      }
+    getModule(bpmnViewer, 'comments').then((comments) => {
+      bpmnViewer.on('element.click', (e: any) => {
+        if (`${e.element?.type}`.endsWith('Process')) {
+          comments.collapseAll();
+        }
+      });
     });
     // 添加导入完成事件
     // bpmnViewer.on('import.done', (event: { error: any; warnings: any }) => {

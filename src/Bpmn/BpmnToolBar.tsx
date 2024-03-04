@@ -40,12 +40,10 @@ function BpmnToolBar(props: {
   );
   const { bpmnInstance } = props;
 
-  const simulationModule = useMemo(() => {
-    try {
-      return bpmnInstance.get('toggleMode');
-    } catch (e) {}
-    return undefined;
-  }, [bpmnInstance]);
+  const simulationModule = useMemo(
+    () => bpmnInstance.get('toggleMode'),
+    [bpmnInstance],
+  );
 
   const rightBottom = useMemo(() => {
     const items = [];
@@ -116,7 +114,7 @@ function BpmnToolBar(props: {
       items.push(<hr />);
     }
     return items.splice(0, items.length - 1);
-  }, [toolBar, isFullscreen, isSimulation, simulationModule]);
+  }, [toolBar, bpmnInstance, isFullscreen, isSimulation, simulationModule]);
   const leftBottom = useMemo(() => {
     const items = [];
     if (toolBar.openFile) {
@@ -157,7 +155,7 @@ function BpmnToolBar(props: {
       );
     }
     return items;
-  }, [toolBar]);
+  }, [toolBar, bpmnInstance]);
 
   const toolBarElem = useMemo(
     () => (

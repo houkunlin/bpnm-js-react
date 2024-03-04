@@ -10,6 +10,21 @@ import BaseViewer, {
 import { isNil } from 'lodash';
 import React from 'react';
 
+export function getModule<T = any>(bpmnViewer: BaseViewer, moduleName: string) {
+  const promise = new Promise<T>((resolve, reject) => {
+    try {
+      const module = bpmnViewer.get(moduleName);
+      resolve(module as T);
+    } catch (e) {
+      reject(e);
+    }
+  });
+  // promise.catch(e => {
+  //   console.error('get module error -->', e);
+  // });
+  return promise;
+}
+
 export class BpmnInstance {
   readonly bpmnViewer: BaseViewer;
   readonly inputRef: React.RefObject<HTMLInputElement>;
@@ -63,8 +78,11 @@ export class BpmnInstance {
     return this.bpmnViewer.on(events, callback, that);
   }
 
-  get(name: string) {
-    return this.bpmnViewer.get(name) as any;
+  get<T = any>(name: string) {
+    try {
+      return this.bpmnViewer.get(name) as T;
+    } catch (e) {}
+    return undefined;
   }
 
   canvas() {
@@ -78,11 +96,15 @@ export class BpmnInstance {
   propertiesPanel() {
     return this.bpmnViewer.get('propertiesPanel') as any;
   }
+
+  getModule<T = any>(moduleName: string) {
+    return getModule<T>(this.bpmnViewer, moduleName);
+  }
 }
 
 export function initBpmnViewerEmptyDiagram(bpmnViewer: BaseViewer) {
   bpmnViewer.importXML(EmptyBpmnXmlDiagram).then(() => {
-    (bpmnViewer.get('canvas') as any).zoom('fit-viewport', 'auto');
+    getModule(bpmnViewer, 'canvas').then((v) => v.zoom('fit-viewport', 'auto'));
   });
 }
 

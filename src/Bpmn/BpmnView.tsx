@@ -23,6 +23,7 @@ import {
   BpmnInstance,
   BpmnProps,
   BpmnPropsKeys,
+  getModule,
   initBpmnViewerEmptyDiagram,
 } from './commons';
 
@@ -66,7 +67,9 @@ const Bpmn = forwardRef<
       try {
         if (xml.startsWith('<xml') || xml.startsWith('<?xml ')) {
           const value = await bpmnViewer.importXML(xml);
-          (bpmnViewer.get('canvas') as any).zoom('fit-viewport', 'auto');
+          getModule(bpmnViewer, 'canvas').then((v) =>
+            v.zoom('fit-viewport', 'auto'),
+          );
           theProps.onLoadSuccess?.(value, bpmnViewer);
           return value;
         }
