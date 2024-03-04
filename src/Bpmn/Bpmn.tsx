@@ -223,7 +223,7 @@ const Bpmn = forwardRef<
       <input
         ref={dataOpenFileRef}
         type="file"
-        accept=".bpnm, .xml"
+        accept=".bpmn, .xml"
         name="open"
         style={{ display: 'none' }}
         onChange={(event) => {
