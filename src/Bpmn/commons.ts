@@ -97,6 +97,8 @@ export type BpmnPropsToolBar = {
   zoomOut?: boolean;
   /* 展示属性面板 */
   properties?: boolean;
+  /* 流程模拟仿真 */
+  simulation?: boolean;
 
   // zoom?: boolean;
   // scroll?: boolean;
@@ -130,6 +132,7 @@ export function getDefaultToolBar(toolBar?: BpmnPropsToolBar) {
     zoomOut: true,
     reset: true,
     properties: true,
+    simulation: true,
   };
   if (!isNil(toolBar)) {
     // eslint-disable-next-line guard-for-in

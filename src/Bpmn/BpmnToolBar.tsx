@@ -1,5 +1,6 @@
 import {
   AimOutlined,
+  BugOutlined,
   CodeOutlined,
   CompressOutlined,
   DownloadOutlined,
@@ -18,7 +19,7 @@ import {
 } from '@houkunlin/bpmn-js-react';
 import { useFullscreen } from 'ahooks';
 import classNames from 'classnames';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { EmptyBpmnXmlDiagram } from '../utils';
 import './styles/viewer-toolbar.less';
 
@@ -31,6 +32,7 @@ function BpmnToolBar(props: {
   const [isFullscreen, { enterFullscreen, exitFullscreen }] = useFullscreen(
     props.fullscreenRef,
   );
+  const [isSimulation, setIsSimulation] = useState<boolean>(false);
   const toolBar = useMemo(
     () => getDefaultToolBar(props.toolBar),
     [props.toolBar],
@@ -39,6 +41,26 @@ function BpmnToolBar(props: {
 
   const rightBottom = useMemo(() => {
     const items = [];
+    if (toolBar.simulation) {
+      items.push(
+        <button title={isSimulation ? '退出流程模拟' : '流程模拟'}>
+          <BugOutlined
+            style={{ color: isSimulation ? '#1890ff' : undefined }}
+            onClick={() => {
+              const mode = bpmnInstance.get('toggleMode');
+              const newValue = !isSimulation;
+              if (isSimulation) {
+                mode.toggleMode(newValue);
+              } else {
+                mode.toggleMode(newValue);
+              }
+              setIsSimulation(newValue);
+            }}
+          />
+        </button>,
+      );
+      items.push(<hr />);
+    }
     if (toolBar.fullscreen) {
       items.push(
         <button title={isFullscreen ? '退出全屏' : '全屏'}>
@@ -87,7 +109,7 @@ function BpmnToolBar(props: {
       items.push(<hr />);
     }
     return items.splice(0, items.length - 1);
-  }, [toolBar, isFullscreen]);
+  }, [toolBar, isFullscreen, isSimulation]);
   const leftBottom = useMemo(() => {
     const items = [];
     if (toolBar.openFile) {
