@@ -11,6 +11,7 @@ import React, {
 } from 'react';
 // 迷你图
 // @ts-ignore
+import TokenSimulationModule from 'bpmn-js-token-simulation';
 import minimapModule from 'diagram-js-minimap';
 // 属性面板模块
 import {
@@ -47,6 +48,7 @@ const options = {
     CamundaPlatformPropertiesProviderModule,
     CamundaExtensionModule,
     EmbeddedComments,
+    TokenSimulationModule,
     i18n,
     minimapModule,
   ],
