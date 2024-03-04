@@ -19,7 +19,12 @@ import classNames from 'classnames';
 import { debounce, isNil, omit, pick } from 'lodash';
 import { EmptyBpmnXmlDiagram } from '../utils';
 import BpmnToolBar from './BpmnToolBar';
-import { BpmnInstance, BpmnProps, BpmnPropsKeys } from './commons';
+import {
+  BpmnInstance,
+  BpmnProps,
+  BpmnPropsKeys,
+  initBpmnViewerEmptyDiagram,
+} from './commons';
 
 import './styles/bpmn.less';
 import './styles/viewer-index.less';
@@ -61,14 +66,14 @@ const Bpmn = forwardRef<
       try {
         if (xml.startsWith('<xml') || xml.startsWith('<?xml ')) {
           const value = await bpmnViewer.importXML(xml);
-          (bpmnViewer.get('canvas') as any).zoom('fit-viewport');
+          (bpmnViewer.get('canvas') as any).zoom('fit-viewport', 'auto');
           theProps.onLoadSuccess?.(value, bpmnViewer);
           return value;
         }
-        bpmnViewer.importXML(EmptyBpmnXmlDiagram);
+        initBpmnViewerEmptyDiagram(bpmnViewer);
         theProps.onLoadError?.(new Error('xml格式不正确'), bpmnViewer);
       } catch (error) {
-        bpmnViewer.importXML(EmptyBpmnXmlDiagram);
+        initBpmnViewerEmptyDiagram(bpmnViewer);
         theProps.onLoadError?.(error, bpmnViewer);
       }
       return { warnings: ['导入失败'] };

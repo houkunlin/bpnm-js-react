@@ -79,9 +79,9 @@ function BpmnToolBar(props: {
     }
     if (toolBar.fit) {
       items.push(
-        <button title="适合大小">
+        <button title="自适应大小">
           <CompressOutlined
-            onClick={() => bpmnInstance.canvas().zoom('fit-viewport')}
+            onClick={() => bpmnInstance.canvas().zoom('fit-viewport', 'auto')}
           />
         </button>,
       );
@@ -99,7 +99,7 @@ function BpmnToolBar(props: {
       items.push(
         <button title="放大">
           <ZoomInOutlined
-            onClick={() => bpmnInstance.zoomScroll().stepZoom(1)}
+            onClick={() => bpmnInstance.zoomScroll().stepZoom(0.5)}
           />
         </button>,
       );
@@ -109,7 +109,7 @@ function BpmnToolBar(props: {
       items.push(
         <button title="缩小">
           <ZoomOutOutlined
-            onClick={() => bpmnInstance.zoomScroll().stepZoom(-1)}
+            onClick={() => bpmnInstance.zoomScroll().stepZoom(-0.5)}
           />
         </button>,
       );

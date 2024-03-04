@@ -1,4 +1,8 @@
-import { buildUrlData, download } from '@houkunlin/bpmn-js-react/utils';
+import {
+  buildUrlData,
+  download,
+  EmptyBpmnXmlDiagram,
+} from '@houkunlin/bpmn-js-react/utils';
 import BaseViewer, {
   ImportXMLResult,
   SaveXMLOptions,
@@ -70,6 +74,12 @@ export class BpmnInstance {
   propertiesPanel() {
     return this.bpmnViewer.get('propertiesPanel') as any;
   }
+}
+
+export function initBpmnViewerEmptyDiagram(bpmnViewer: BaseViewer) {
+  bpmnViewer.importXML(EmptyBpmnXmlDiagram).then(() => {
+    (bpmnViewer.get('canvas') as any).zoom('fit-viewport', 'auto');
+  });
 }
 
 export type BpmnPropsToolBar = {
