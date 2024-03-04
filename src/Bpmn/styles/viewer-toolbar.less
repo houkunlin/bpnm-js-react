@@ -1,0 +1,111 @@
+.hkl-bpmn {
+  .hkl-bpmn-content {
+    .hkl-bpmn-content-control {
+      /* 自定义工具栏样式 */
+
+      .io-vertical {
+        /* 垂直 */
+        position: absolute;
+        right: 10px;
+        bottom: 50px;
+
+        .io-control {
+          margin-bottom: 10px;
+        }
+      }
+
+      .io-horizontal {
+        /* 水平 */
+        position: absolute;
+        bottom: 10px;
+        left: 20px;
+
+        > ul,
+        > ul li {
+          display: inline-block;
+        }
+
+        > ul {
+          li + li {
+            margin-left: 10px;
+          }
+
+          a {
+            padding: 2px;
+          }
+        }
+      }
+
+      .io-control {
+        padding: 5px;
+        background: #fafafa;
+        border: solid 1px #e0e0e0;
+        border-radius: 2px;
+
+        &.io-control-list {
+          margin: 0;
+          padding: 5px;
+          list-style: none;
+
+          a,
+          a:visited,
+          button {
+            padding: 0;
+            color: #555;
+            font-size: 22px;
+            line-height: 26px;
+            background: none;
+            border: none;
+            outline: none;
+            cursor: pointer;
+
+            &:hover {
+              color: #333;
+            }
+
+            &.inactive {
+              color: #333;
+              cursor: default;
+            }
+          }
+        }
+
+        hr {
+          width: 22px;
+          border: none;
+          border-top: solid 1px #ddd;
+        }
+      }
+
+      &.control-default {
+        > div {
+          display: inline-block;
+
+          > ul,
+          > ul li {
+            display: inline-block;
+          }
+
+          > ul {
+            li + li {
+              margin-left: 10px;
+            }
+
+            a {
+              padding: 2px;
+            }
+          }
+
+          .io-control hr {
+            width: 0;
+            display: none;
+          }
+        }
+
+        div + div {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}

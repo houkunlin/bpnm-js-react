@@ -1,14 +1,21 @@
-import React from "react";
-import BaseViewer, { ImportXMLResult, SaveXMLOptions } from "bpmn-js/lib/BaseViewer";
-import { buildUrlData, download } from "@houkunlin/bpmn-js-react/utils";
-import { isNil } from "lodash";
+import { buildUrlData, download } from '@houkunlin/bpmn-js-react/utils';
+import BaseViewer, {
+  ImportXMLResult,
+  SaveXMLOptions,
+} from 'bpmn-js/lib/BaseViewer';
+import { isNil } from 'lodash';
+import React from 'react';
 
 export class BpmnInstance {
   readonly bpmnViewer: BaseViewer;
   readonly inputRef: React.RefObject<HTMLInputElement>;
   readonly importXmlFunc: (xml: string) => Promise<ImportXMLResult>;
 
-  constructor(bpmnViewer: BaseViewer, inputRef: React.RefObject<HTMLInputElement>, importXmlFunc: (xml: string) => Promise<ImportXMLResult>) {
+  constructor(
+    bpmnViewer: BaseViewer,
+    inputRef: React.RefObject<HTMLInputElement>,
+    importXmlFunc: (xml: string) => Promise<ImportXMLResult>,
+  ) {
     this.bpmnViewer = bpmnViewer;
     this.inputRef = inputRef;
     this.importXmlFunc = importXmlFunc;
@@ -29,7 +36,7 @@ export class BpmnInstance {
     this.bpmnViewer.saveSVG().then(({ svg }) => {
       const urlData = buildUrlData(svg);
       download(this.getProcessName() + '.svg', urlData);
-    })
+    });
   }
 
   consoleBpmnXml(options: SaveXMLOptions = { format: true }) {
@@ -66,16 +73,29 @@ export class BpmnInstance {
 }
 
 export type BpmnPropsToolBar = {
+  /* 浮动在画布上 */
+  floatCanvas?: boolean;
+  /* 打开文件导入模型 */
   openFile?: boolean;
+  /* 创建空模型 */
   createFile?: boolean;
+  /* 保存xml文件 */
   saveXml?: boolean;
+  /* 保存 SVG 文件 */
   saveSvg?: boolean;
+  /* 控制台打印 */
   consoleXml?: boolean;
+  /* 切换全屏 */
   fullscreen?: boolean;
+  /* 重置画布 */
   reset?: boolean;
+  /* 重置画布 */
   fit?: boolean;
+  /* 画布放大 */
   zoomIn?: boolean;
+  /* 画布缩小 */
   zoomOut?: boolean;
+  /* 展示属性面板 */
   properties?: boolean;
 
   // zoom?: boolean;
@@ -90,14 +110,15 @@ export type BpmnPropsToolBar = {
   // lasso?: boolean;
   // move?: boolean;
   // pan?: boolean;
-}
+};
 
 export function calcToolBarValue(value?: boolean) {
-  return (value === undefined || value === null) || value;
+  return value === undefined || value === null || value;
 }
 
 export function getDefaultToolBar(toolBar?: BpmnPropsToolBar) {
   const defValue: Required<BpmnPropsToolBar> = {
+    floatCanvas: true,
     consoleXml: true,
     createFile: true,
     fit: true,
@@ -109,7 +130,6 @@ export function getDefaultToolBar(toolBar?: BpmnPropsToolBar) {
     zoomOut: true,
     reset: true,
     properties: true,
-
   };
   if (!isNil(toolBar)) {
     // eslint-disable-next-line guard-for-in
@@ -130,4 +150,11 @@ export type BpmnProps = {
   toolBar?: BpmnPropsToolBar;
 };
 
-export const BpmnPropsKeys = ['params', 'request', 'onInit', 'onLoadError', 'onLoadSuccess', 'toolBar'];
+export const BpmnPropsKeys = [
+  'params',
+  'request',
+  'onInit',
+  'onLoadError',
+  'onLoadSuccess',
+  'toolBar',
+];

@@ -39,7 +39,7 @@ const options = {
 };
 
 function createBpmnModeler() {
-  return new BpmnModeler({ ...options, keyboard: { bindTo: document } });
+  return new BpmnModeler({ ...options, keyboard: { bindTo: window } });
 }
 
 const Bpmn = forwardRef<
@@ -144,15 +144,16 @@ const Bpmn = forwardRef<
       <div className={'hkl-bpmn-content'}>
         {/*画布：流程编辑器*/}
         <div className={'hkl-bpmn-content-left'}>
-          <div
-            className={'hkl-bpmn-content-canvas readonly-commons'}
-            ref={canvasDivRef}
-          />
           <BpmnToolBar
             toolBar={theProps.toolBar}
             bpmnInstance={bpmnInstance}
             fullscreenRef={fullscreenRef}
-          />
+          >
+            <div
+              className={'hkl-bpmn-content-canvas readonly-commons'}
+              ref={canvasDivRef}
+            />
+          </BpmnToolBar>
         </div>
       </div>
       <input
