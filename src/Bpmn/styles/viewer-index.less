@@ -55,6 +55,96 @@
           display: inline-block;
         }
       }
+
+      .selected .comments-overlay,
+      .comments-overlay.with-comments {
+        display: block;
+      }
+
+      &.readonly-commons .comments-overlay {
+        /* 隐藏编辑按钮和删除按钮 */
+
+        .content {
+          min-width: 150px;
+
+          .edit,
+          .icon-delete {
+            display: none;
+          }
+        }
+      }
+
+      .comments-overlay {
+        /* 元素节点评论样式 */
+        background: #52b415;
+        font-size: 12px;
+        color: white;
+        display: none;
+        padding: 5px;
+
+        .edit {
+          margin: 2px 0 0;
+          padding-top: 2px;
+        }
+
+        .edit textarea {
+          border: none;
+          margin: 0;
+        }
+
+        .icon-comment:hover {
+          color: #eee;
+        }
+
+        .comment {
+          border-top-color: white;
+        }
+
+        .icon-comment {
+          margin-right: 2px;
+        }
+
+        .icon-delete {
+          color: white;
+          float: right;
+        }
+
+        @font-face {
+          font-family: bpmn-js-comments;
+          src: url('font/bpmn-js-comments.eot?23532594');
+          src: url('font/bpmn-js-comments.eot?23532594#iefix')
+              format('embedded-opentype'),
+            url('font/bpmn-js-comments.woff?23532594') format('woff'),
+            url('font/bpmn-js-comments.ttf?23532594') format('truetype'),
+            url('font/bpmn-js-comments.svg?23532594#bpmn-js-comments')
+              format('svg');
+          font-weight: normal;
+          font-style: normal;
+        }
+
+        [class^='icon-']::before,
+        [class*=' icon-']::before {
+          font-family: bpmn-js-comments, serif;
+          font-style: normal;
+          font-weight: normal;
+          speak: none;
+          display: inline-block;
+          text-decoration: inherit;
+          width: 1em;
+          text-align: center;
+          font-variant: normal;
+          text-transform: none;
+          line-height: 1em;
+        }
+
+        .icon-comment::before {
+          content: '\e800';
+        }
+
+        .icon-delete::before {
+          content: '\e802';
+        }
+      }
     }
 
     .hkl-bpmn-content-control {

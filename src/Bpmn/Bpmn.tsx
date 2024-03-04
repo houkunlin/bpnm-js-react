@@ -20,6 +20,7 @@ import {
 } from 'bpmn-js-properties-panel';
 // 属性面板模块提供者
 // @ts-ignore
+import EmbeddedComments from 'bpmn-js-embedded-comments';
 import CamundaExtensionModule from 'bpmn-moddle';
 // @ts-ignore
 import { useMemoizedFn } from 'ahooks';
@@ -45,6 +46,7 @@ const options = {
     BpmnPropertiesProviderModule,
     CamundaPlatformPropertiesProviderModule,
     CamundaExtensionModule,
+    EmbeddedComments,
     i18n,
     minimapModule,
   ],
@@ -127,6 +129,12 @@ const Bpmn = forwardRef<
       //   // 如果存在URL传入到当前组件，则加载这个URL的BPMN文件
       // });
     }
+    const comments = bpmnViewer.get('comments') as any;
+    bpmnViewer.on('element.click', (e: any) => {
+      if (`${e.element?.type}`.endsWith('Process')) {
+        comments.collapseAll();
+      }
+    });
     // 添加导入完成事件
     // bpmnViewer.on('import.done', (event: { error: any; warnings: any }) => {
     //   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -137,9 +145,11 @@ const Bpmn = forwardRef<
     //   bpmnInstance.canvas().zoom('fit-viewport');
     // });
 
-    const exportArtifacts = debounce(() => {}, 500);
     // 添加事件，在画布有数据变动的时候触发
-    bpmnViewer.on('commandStack.changed', exportArtifacts);
+    bpmnViewer.on(
+      'commandStack.changed',
+      debounce(() => {}, 500),
+    );
 
     return () => {
       bpmnViewer.clear();

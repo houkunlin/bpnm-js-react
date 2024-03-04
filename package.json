@@ -2,28 +2,25 @@
   "name": "@houkunlin/bpmn-js-react",
   "version": "0.0.1",
   "description": "A react library developed with dumi",
+  "license": "MIT",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "start": "npm run dev",
-    "dev": "dumi dev",
     "build": "father build",
     "build:watch": "father dev",
+    "dev": "dumi dev",
     "docs:build": "dumi build",
-    "prepare": "husky install && dumi setup",
     "doctor": "father doctor",
     "lint": "npm run lint:es && npm run lint:css",
     "lint:css": "stylelint \"{src,test}/**/*.{css,less}\"",
     "lint:es": "eslint \"{src,test}/**/*.{js,jsx,ts,tsx}\"",
-    "prepublishOnly": "father doctor && npm run build"
+    "prepare": "husky install && dumi setup",
+    "prepublishOnly": "father doctor && npm run build",
+    "start": "npm run dev"
   },
-  "authors": [
-    "houkunlin <houkunlin@aliyun.com>"
-  ],
-  "license": "MIT",
-  "files": [
-    "dist"
-  ],
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
@@ -46,17 +43,11 @@
       "prettier --parser=typescript --write"
     ]
   },
-  "publishConfig": {
-    "access": "public"
-  },
-  "peerDependencies": {
-    "react": ">=18.2.0",
-    "react-dom": ">=18.2.0"
-  },
   "dependencies": {
     "@bpmn-io/properties-panel": "^3.18.1",
     "ahooks": "^3.7.8",
     "bpmn-js": "^17.0.2",
+    "bpmn-js-embedded-comments": "^0.7.0",
     "bpmn-js-properties-panel": "^5.13.0",
     "bpmn-moddle": "^8.1.0",
     "camunda-bpmn-moddle": "^7.0.1",
@@ -66,14 +57,14 @@
     "react-dev-inspector": "^2.0.0"
   },
   "devDependencies": {
-    "@emotion/css": "^11.11.2",
-    "@uidotdev/usehooks": "^2.4.1",
     "@ant-design/icons": "^5.3.1",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^17.1.0",
+    "@emotion/css": "^11.11.2",
     "@types/lodash": "^4.14.202",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
+    "@uidotdev/usehooks": "^2.4.1",
     "@umijs/lint": "^4.0.0",
     "dumi": "^2.2.13",
     "eslint": "^8.23.0",
@@ -89,5 +80,15 @@
     "styled-components": "^6.1.0",
     "stylelint": "^14.9.1",
     "typescript": "^5.0.3"
-  }
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "authors": [
+    "houkunlin <houkunlin@aliyun.com>"
+  ]
 }
