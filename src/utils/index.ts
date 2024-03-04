@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useMemoizedFn, useMouse } from "ahooks";
+import { useLatest, useMemoizedFn } from 'ahooks';
+import React, { useEffect } from 'react';
 
 export const buildUrlData = (rawData: string) => {
   const encodedData = encodeURIComponent(rawData);
@@ -23,42 +23,43 @@ export function useMoveDiv(props: {
 }) {
   const minWidth = props?.minWidth ?? 260;
   // [鼠标按下时的坐标X位置，鼠标按下时的宽度]
-  const [start, setStart] = useState<number[]>([-1, minWidth]);
-  const [width, setWidth] = useState<number>(minWidth);
-  const mouse = useMouse(props.parentDivRef);
+  const start = useLatest<boolean>(false);
 
   useEffect(() => {
-    if (start[0] >= 0) {
-      // 之所以要 (* -1) 是因为要向左拉动改变宽度
-      // 结果 = 鼠标按下时的宽度 + ( 当前鼠标坐标X位置 - 鼠标按下时的坐标X位置 ) * -1
-      let newWidth = start[1] + (mouse.clientX - start[0]) * -1;
-      // 限制最大宽度只能为编辑器宽度的一半
-      if (newWidth > mouse.elementW / 2) {
-        newWidth = mouse.elementW / 2;
-      }
-      const calcWidth = newWidth < minWidth ? minWidth : newWidth;
-      props.onResize?.(calcWidth);
-      setWidth(calcWidth);
-    }
-  }, [start, mouse]);
+    props.onResize?.(minWidth);
+  }, []);
+
   const onMouseStart = useMemoizedFn((e) => {
     e.preventDefault();
     e.stopPropagation();
-    setStart([mouse.clientX, width]);
-    // console.log('按下鼠标', mouse.clientX)
+    start.current = true;
+    // console.log('按下鼠标', v.current)
   });
-  const onMouseEnd = useMemoizedFn((e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setStart([-1]);
-    // console.log('抬起鼠标', mouse.clientX)
+  const onMouseMove = useMemoizedFn((e) => {
+    if (start.current) {
+      const parentDiv = props.parentDivRef.current!;
+      const parentWidth = parentDiv.clientWidth;
+      // 结果 = 父容器宽度 - ( 当前鼠标屏幕坐标X位置 - 父容器屏幕坐标X位置 ) - 4个分隔符像素
+      let newWidth = parentWidth - (e.clientX - parentDiv.offsetLeft) - 4;
+      // 限制最大宽度只能为编辑器宽度的一半
+      if (newWidth > parentWidth / 2) {
+        newWidth = parentWidth / 2;
+      }
+      const calcWidth = newWidth < minWidth ? minWidth : newWidth;
+      // console.log('移动鼠标', calcWidth, newWidth);
+      props.onResize?.(calcWidth);
+    }
+  });
+  const onMouseEnd = useMemoizedFn(() => {
+    start.current = false;
+    // console.log('抬起鼠标', v.current)
   });
 
   return {
-    width,
     onMouseStart,
-    onMouseEnd
-  }
+    onMouseMove,
+    onMouseEnd,
+  };
 }
 
 export const EmptyBpmnXmlDiagram = `
@@ -78,4 +79,4 @@ export const EmptyBpmnXmlDiagram = `
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
-`
+`;
