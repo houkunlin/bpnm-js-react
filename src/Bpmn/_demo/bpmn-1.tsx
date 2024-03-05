@@ -1,4 +1,4 @@
-import { Bpmn, BpmnInstance } from '@houkunlin/bpmn-js-react';
+import { Bpmn, BpmnInstance, getModule } from '@houkunlin/bpmn-js-react';
 import React, { useCallback, useState } from 'react';
 
 export default () => {
@@ -24,6 +24,11 @@ export default () => {
         request={request}
         style={{ height: '800px', width: '100%' }}
         toolBar={{ floatCanvas: floatCanvas }}
+        onLoadSuccess={(data, bpmnViewer) => {
+          getModule(bpmnViewer, 'keyboard').then((value) => {
+            value.bind(document);
+          });
+        }}
       />
     </>
   );

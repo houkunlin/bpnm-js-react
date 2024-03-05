@@ -62,7 +62,7 @@ const options = {
 };
 
 function createBpmnModeler() {
-  return new BpmnModeler({ ...options, keyboard: { bindTo: window } });
+  return new BpmnModeler({ ...options });
 }
 
 const Bpmn = forwardRef<
