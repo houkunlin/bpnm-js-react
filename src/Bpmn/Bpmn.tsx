@@ -11,8 +11,9 @@ import React, {
 } from 'react';
 // 迷你图
 // @ts-ignore
-import TokenSimulationModule from 'bpmn-js-token-simulation';
 import minimapModule from 'diagram-js-minimap';
+// @ts-ignore
+import TokenSimulationModule from 'bpmn-js-token-simulation';
 // 属性面板模块
 import {
   BpmnPropertiesPanelModule,
@@ -21,8 +22,9 @@ import {
 } from 'bpmn-js-properties-panel';
 // 属性面板模块提供者
 // @ts-ignore
-import EmbeddedComments from 'bpmn-js-embedded-comments';
 import CamundaExtensionModule from 'bpmn-moddle';
+// @ts-ignore
+import EmbeddedComments from 'bpmn-js-embedded-comments';
 // @ts-ignore
 import { useDeepCompareEffect, useMemoizedFn } from 'ahooks';
 import camundaModdleDescriptors from 'camunda-bpmn-moddle/resources/camunda.json';

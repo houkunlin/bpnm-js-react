@@ -10,6 +10,9 @@ import BaseViewer, {
 import { isNil } from 'lodash';
 import React from 'react';
 
+export { default as BaseViewer } from 'bpmn-js/lib/BaseViewer';
+export type { ImportXMLResult, SaveXMLOptions } from 'bpmn-js/lib/BaseViewer';
+
 export function getModule<T = any>(bpmnViewer: BaseViewer, moduleName: string) {
   const promise = new Promise<T>((resolve, reject) => {
     try {
