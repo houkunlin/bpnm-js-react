@@ -1,7 +1,7 @@
 import {
   BpmnProps,
+  createEmptyDiagram,
   getModule,
-  initBpmnViewerEmptyDiagram,
 } from '@houkunlin/bpmn-js-react';
 import { useLatest, useMemoizedFn } from 'ahooks';
 import BaseViewer, { ImportXMLResult } from 'bpmn-js/lib/BaseViewer';
@@ -59,7 +59,7 @@ export function useImportXml(bpmnViewer: BaseViewer, opts: BpmnProps) {
     async (xml?: string | null): Promise<ImportXMLResult> => {
       try {
         if (isNil(xml) || xml.trim().length === 0) {
-          initBpmnViewerEmptyDiagram(bpmnViewer);
+          createEmptyDiagram(bpmnViewer);
           opts.onLoadError?.(new Error('xml格式不正确'), bpmnViewer);
           return { warnings: ['xml格式不正确, 导入默认的流程图'] };
         }
@@ -72,7 +72,7 @@ export function useImportXml(bpmnViewer: BaseViewer, opts: BpmnProps) {
           return value;
         }
       } catch (error) {
-        initBpmnViewerEmptyDiagram(bpmnViewer);
+        createEmptyDiagram(bpmnViewer);
         opts.onLoadError?.(error, bpmnViewer);
       }
       return { warnings: ['导入失败'] };

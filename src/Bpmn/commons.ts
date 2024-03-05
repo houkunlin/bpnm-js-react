@@ -7,6 +7,7 @@ import BaseViewer, {
   ImportXMLResult,
   SaveXMLOptions,
 } from 'bpmn-js/lib/BaseViewer';
+import Modeler from 'bpmn-js/lib/Modeler';
 import { isNil } from 'lodash';
 import React from 'react';
 
@@ -109,8 +110,14 @@ export class BpmnInstance {
   }
 }
 
-export function initBpmnViewerEmptyDiagram(bpmnViewer: BaseViewer) {
-  bpmnViewer.importXML(EmptyBpmnXmlDiagram).then(() => {
+export function createEmptyDiagram(bpmnViewer: BaseViewer) {
+  let promise;
+  if (bpmnViewer instanceof Modeler) {
+    promise = bpmnViewer.createDiagram();
+  } else {
+    promise = bpmnViewer.importXML(EmptyBpmnXmlDiagram);
+  }
+  promise.then(() => {
     getModule(bpmnViewer, 'canvas').then((v) => v.zoom('fit-viewport', 'auto'));
   });
 }
