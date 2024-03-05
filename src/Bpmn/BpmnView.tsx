@@ -1,4 +1,4 @@
-import BaseViewer, { ImportXMLResult } from 'bpmn-js/lib/BaseViewer';
+import BaseViewer from 'bpmn-js/lib/BaseViewer';
 import BpmnModeler from 'bpmn-js/lib/Viewer';
 import ModelingModule from 'bpmn-js/lib/features/modeling';
 import MoveCanvasModule from 'diagram-js/lib/navigation/movecanvas';
@@ -12,20 +12,12 @@ import React, {
   useState,
 } from 'react';
 // @ts-ignore
-import { useMemoizedFn } from 'ahooks';
-// @ts-ignore
 import EmbeddedComments from 'bpmn-js-embedded-comments';
 import classNames from 'classnames';
 import { debounce, isNil, omit, pick } from 'lodash';
-import { EmptyBpmnXmlDiagram } from '../utils';
+import { useImportXml } from '../utils';
 import BpmnToolBar from './BpmnToolBar';
-import {
-  BpmnInstance,
-  BpmnProps,
-  BpmnPropsKeys,
-  getModule,
-  initBpmnViewerEmptyDiagram,
-} from './commons';
+import { BpmnInstance, BpmnProps, BpmnPropsKeys } from './commons';
 
 import './styles/bpmn.less';
 import './styles/viewer-index.less';
@@ -62,26 +54,7 @@ const Bpmn = forwardRef<
   const { params, request, ...theProps } = pick(props, BpmnPropsKeys);
   const rest = omit(props, BpmnPropsKeys);
 
-  const doImportXml = useMemoizedFn(
-    async (xml: string): Promise<ImportXMLResult> => {
-      try {
-        if (xml.startsWith('<xml') || xml.startsWith('<?xml ')) {
-          const value = await bpmnViewer.importXML(xml);
-          getModule(bpmnViewer, 'canvas').then((v) =>
-            v.zoom('fit-viewport', 'auto'),
-          );
-          theProps.onLoadSuccess?.(value, bpmnViewer);
-          return value;
-        }
-        initBpmnViewerEmptyDiagram(bpmnViewer);
-        theProps.onLoadError?.(new Error('xml格式不正确'), bpmnViewer);
-      } catch (error) {
-        initBpmnViewerEmptyDiagram(bpmnViewer);
-        theProps.onLoadError?.(error, bpmnViewer);
-      }
-      return { warnings: ['导入失败'] };
-    },
-  );
+  const doImportXml = useImportXml(bpmnViewer, theProps);
 
   const bpmnInstance = useMemo(
     () => new BpmnInstance(bpmnViewer, dataOpenFileRef, doImportXml),
@@ -127,7 +100,7 @@ const Bpmn = forwardRef<
         .then(doImportXml)
         .catch((error) => theProps.onLoadError?.(error, bpmnViewer));
     } else {
-      doImportXml(EmptyBpmnXmlDiagram);
+      doImportXml();
     }
   }, [params, request, bpmnViewer]);
 

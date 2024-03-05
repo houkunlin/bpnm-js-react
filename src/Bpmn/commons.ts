@@ -31,12 +31,12 @@ export function getModule<T = any>(bpmnViewer: BaseViewer, moduleName: string) {
 export class BpmnInstance {
   readonly bpmnViewer: BaseViewer;
   readonly inputRef: React.RefObject<HTMLInputElement>;
-  readonly importXmlFunc: (xml: string) => Promise<ImportXMLResult>;
+  readonly importXmlFunc: (xml?: string | null) => Promise<ImportXMLResult>;
 
   constructor(
     bpmnViewer: BaseViewer,
     inputRef: React.RefObject<HTMLInputElement>,
-    importXmlFunc: (xml: string) => Promise<ImportXMLResult>,
+    importXmlFunc: (xml?: string | null) => Promise<ImportXMLResult>,
   ) {
     this.bpmnViewer = bpmnViewer;
     this.inputRef = inputRef;
@@ -73,7 +73,11 @@ export class BpmnInstance {
     this.inputRef.current?.click();
   }
 
-  importBpmnXml(xml: string) {
+  createBpmnXml() {
+    return this.importXmlFunc();
+  }
+
+  importBpmnXml(xml?: string | null) {
     return this.importXmlFunc(xml);
   }
 

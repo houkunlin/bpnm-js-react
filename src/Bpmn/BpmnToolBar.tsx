@@ -21,7 +21,6 @@ import { useFullscreen } from 'ahooks';
 import classNames from 'classnames';
 import { isNil } from 'lodash';
 import React, { useMemo, useState } from 'react';
-import { EmptyBpmnXmlDiagram } from '../utils';
 import './styles/viewer-toolbar.less';
 
 function BpmnToolBar(props: {
@@ -127,9 +126,7 @@ function BpmnToolBar(props: {
     if (toolBar.createFile) {
       items.push(
         <button title="创建空 BPMN 2.0 模型">
-          <FileAddOutlined
-            onClick={() => bpmnInstance.importBpmnXml(EmptyBpmnXmlDiagram)}
-          />
+          <FileAddOutlined onClick={() => bpmnInstance.createBpmnXml()} />
         </button>,
       );
     }
