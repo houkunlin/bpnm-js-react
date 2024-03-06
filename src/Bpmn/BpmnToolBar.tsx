@@ -23,6 +23,14 @@ import { isNil } from 'lodash';
 import React, { useMemo, useState } from 'react';
 import './styles/viewer-toolbar.less';
 
+function disableButtonClick(
+  e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+) {
+  e.stopPropagation();
+  e.preventDefault();
+  return false;
+}
+
 function BpmnToolBar(props: {
   toolBar?: BpmnPropsToolBar;
   bpmnInstance: BpmnInstance;
@@ -48,7 +56,10 @@ function BpmnToolBar(props: {
     const items = [];
     if (toolBar.simulation && !isNil(simulationModule)) {
       items.push(
-        <button title={isSimulation ? '退出流程模拟' : '流程模拟'}>
+        <button
+          title={isSimulation ? '退出流程模拟' : '流程模拟'}
+          onClick={disableButtonClick}
+        >
           <BugOutlined
             style={{ color: isSimulation ? '#1890ff' : undefined }}
             onClick={() => {
@@ -67,7 +78,10 @@ function BpmnToolBar(props: {
     }
     if (toolBar.fullscreen) {
       items.push(
-        <button title={isFullscreen ? '退出全屏' : '全屏'}>
+        <button
+          title={isFullscreen ? '退出全屏' : '全屏'}
+          onClick={disableButtonClick}
+        >
           {!isFullscreen && <FullscreenOutlined onClick={enterFullscreen} />}
           {isFullscreen && <FullscreenExitOutlined onClick={exitFullscreen} />}
         </button>,
@@ -76,7 +90,7 @@ function BpmnToolBar(props: {
     }
     if (toolBar.fit) {
       items.push(
-        <button title="自适应大小">
+        <button title="自适应大小" onClick={disableButtonClick}>
           <CompressOutlined
             onClick={() => bpmnInstance.canvas().zoom('fit-viewport', 'auto')}
           />
@@ -86,7 +100,7 @@ function BpmnToolBar(props: {
     }
     if (toolBar.reset) {
       items.push(
-        <button title="重置">
+        <button title="重置" onClick={disableButtonClick}>
           <AimOutlined onClick={() => bpmnInstance.zoomScroll().reset()} />
         </button>,
       );
@@ -94,7 +108,7 @@ function BpmnToolBar(props: {
     }
     if (toolBar.zoomIn) {
       items.push(
-        <button title="放大">
+        <button title="放大" onClick={disableButtonClick}>
           <ZoomInOutlined
             onClick={() => bpmnInstance.zoomScroll().stepZoom(0.5)}
           />
@@ -104,7 +118,7 @@ function BpmnToolBar(props: {
     }
     if (toolBar.zoomOut) {
       items.push(
-        <button title="缩小">
+        <button title="缩小" onClick={disableButtonClick}>
           <ZoomOutOutlined
             onClick={() => bpmnInstance.zoomScroll().stepZoom(-0.5)}
           />
@@ -118,35 +132,35 @@ function BpmnToolBar(props: {
     const items = [];
     if (toolBar.openFile) {
       items.push(
-        <button title="打开 BPMN 2.0 文件">
+        <button title="打开 BPMN 2.0 文件" onClick={disableButtonClick}>
           <FolderOpenOutlined onClick={() => bpmnInstance.openBpmnFile()} />
         </button>,
       );
     }
     if (toolBar.createFile) {
       items.push(
-        <button title="创建空 BPMN 2.0 模型">
+        <button title="创建空 BPMN 2.0 模型" onClick={disableButtonClick}>
           <FileAddOutlined onClick={() => bpmnInstance.createBpmnXml()} />
         </button>,
       );
     }
     if (toolBar.saveXml) {
       items.push(
-        <button title="保存 BPMN 2.0 文件">
+        <button title="保存 BPMN 2.0 文件" onClick={disableButtonClick}>
           <DownloadOutlined onClick={() => bpmnInstance.saveBpmnXml()} />
         </button>,
       );
     }
     if (toolBar.saveSvg) {
       items.push(
-        <button title="保存 SVG 图像">
+        <button title="保存 SVG 图像" onClick={disableButtonClick}>
           <FileImageOutlined onClick={() => bpmnInstance.saveBpmnSvg()} />
         </button>,
       );
     }
     if (toolBar.consoleXml) {
       items.push(
-        <button title="打印到控制台">
+        <button title="打印到控制台" onClick={disableButtonClick}>
           <CodeOutlined onClick={() => bpmnInstance.consoleBpmnXml()} />
         </button>,
       );
