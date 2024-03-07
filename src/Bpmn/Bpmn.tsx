@@ -140,6 +140,19 @@ const Bpmn = forwardRef<
       debounce(() => {}, 500),
     );
 
+    const buttons = canvasDivRef.current!.getElementsByTagName('button');
+    console.log(buttons);
+    for (let button of buttons) {
+      button.addEventListener(
+        'click',
+        (e) => {
+          e.preventDefault();
+          return false;
+        },
+        false,
+      );
+    }
+
     return () => {
       bpmnViewer.clear();
       // bpmnViewer.detach();
