@@ -54,14 +54,24 @@ export function useMoveDiv(props: {
   };
 }
 
+export type UseImportXmlResult = {
+  result: ImportXMLResult;
+  bpmnViewer: BaseViewer;
+  success: boolean;
+};
+
 export function useImportXml(bpmnViewer: BaseViewer, opts: BpmnProps) {
   return useMemoizedFn(
-    async (xml?: string | null): Promise<ImportXMLResult> => {
+    async (xml?: string | null): Promise<UseImportXmlResult> => {
       try {
         if (isNil(xml) || xml.trim().length === 0) {
           createEmptyDiagram(bpmnViewer);
           opts.onLoadError?.(new Error('xml格式不正确'), bpmnViewer);
-          return { warnings: ['xml格式不正确, 导入默认的流程图'] };
+          return {
+            result: { warnings: ['xml格式不正确, 导入默认的流程图'] },
+            bpmnViewer,
+            success: false,
+          };
         }
         if (xml.startsWith('<xml') || xml.startsWith('<?xml ')) {
           const value = await bpmnViewer.importXML(xml);
@@ -69,13 +79,21 @@ export function useImportXml(bpmnViewer: BaseViewer, opts: BpmnProps) {
             v.zoom('fit-viewport', 'auto'),
           );
           opts.onLoadSuccess?.(value, bpmnViewer);
-          return value;
+          return {
+            result: value,
+            bpmnViewer,
+            success: true,
+          };
         }
       } catch (error) {
         createEmptyDiagram(bpmnViewer);
         opts.onLoadError?.(error, bpmnViewer);
       }
-      return { warnings: ['导入失败'] };
+      return {
+        result: { warnings: ['导入失败'] },
+        bpmnViewer,
+        success: false,
+      };
     },
   );
 }

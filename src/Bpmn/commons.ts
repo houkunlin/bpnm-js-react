@@ -2,6 +2,7 @@ import {
   buildUrlData,
   download,
   EmptyBpmnXmlDiagram,
+  UseImportXmlResult,
 } from '@houkunlin/bpmn-js-react/utils';
 import BaseViewer, {
   ImportXMLResult,
@@ -31,12 +32,12 @@ export function getModule<T = any>(bpmnViewer: BaseViewer, moduleName: string) {
 export class BpmnInstance {
   readonly bpmnViewer: BaseViewer;
   readonly inputRef: React.RefObject<HTMLInputElement>;
-  readonly importXmlFunc: (xml?: string | null) => Promise<ImportXMLResult>;
+  readonly importXmlFunc: (xml?: string | null) => Promise<UseImportXmlResult>;
 
   constructor(
     bpmnViewer: BaseViewer,
     inputRef: React.RefObject<HTMLInputElement>,
-    importXmlFunc: (xml?: string | null) => Promise<ImportXMLResult>,
+    importXmlFunc: (xml?: string | null) => Promise<UseImportXmlResult>,
   ) {
     this.bpmnViewer = bpmnViewer;
     this.inputRef = inputRef;
