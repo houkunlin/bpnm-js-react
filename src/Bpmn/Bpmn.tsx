@@ -170,18 +170,6 @@ const Bpmn = forwardRef<
     }
   }, [params, request, bpmnViewer]);
 
-  useEffect(() => {
-    const element = document.getElementById('root');
-    if (isNil(element) || isNil(element.children[0])) {
-      return;
-    }
-    const child = element.children[0] as HTMLDivElement;
-    child.style.height = '100%';
-    return () => {
-      child.style.removeProperty('height');
-    };
-  }, []);
-
   return (
     <div
       {...rest}
