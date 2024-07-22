@@ -1,6 +1,6 @@
 {
   "name": "@houkunlin/bpmn-js-react",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A react library developed with dumi",
   "license": "MIT",
   "module": "dist/index.js",
@@ -84,7 +84,9 @@
   },
   "peerDependencies": {
     "react": ">=18.2.0",
-    "react-dom": ">=18.2.0"
+    "react-dom": ">=18.2.0",
+    "@ant-design/icons": "^5.3.1",
+    "diagram-js": "^14.8.0"
   },
   "publishConfig": {
     "access": "public"
