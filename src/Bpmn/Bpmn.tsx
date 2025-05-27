@@ -1,5 +1,5 @@
 // @ts-nocheck
-import BaseViewer from 'bpmn-js/lib/BaseViewer';
+import BaseViewer, { BaseViewerOptions } from 'bpmn-js/lib/BaseViewer';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
 import React, {
   forwardRef,
@@ -44,7 +44,7 @@ import i18n from './i18n';
 import './styles/bpmn.less';
 import './styles/viewer-index.less';
 
-const options = {
+const options: BaseViewerOptions = {
   additionalModules: [
     BpmnPropertiesPanelModule,
     BpmnPropertiesProviderModule,
@@ -88,7 +88,8 @@ const Bpmn = forwardRef<
   const doImportXml = useImportXml(bpmnViewer, theProps);
 
   const bpmnInstance = useMemo(
-    () => new BpmnInstance(bpmnViewer, dataOpenFileRef, doImportXml),
+    () =>
+      new BpmnInstance(bpmnViewer, dataOpenFileRef, doImportXml, canvasDivRef),
     [bpmnViewer],
   );
 
@@ -154,9 +155,8 @@ const Bpmn = forwardRef<
     }
 
     return () => {
-      bpmnViewer.clear();
-      // bpmnViewer.detach();
-      bpmnViewer.destroy();
+      getModule(bpmnViewer, 'propertiesPanel').then((v) => v.detach());
+      bpmnViewer.detach();
     };
   }, []);
 

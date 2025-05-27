@@ -251,4 +251,6 @@ export default {
   'List values': 'List values',
   'Process variable name': '流程变量名称',
   'This maps to the process definition key.': '这映射到流程定义键',
+  'Form reference': '表单引用',
+  Binding: '绑定',
 } as Record<string, string>;

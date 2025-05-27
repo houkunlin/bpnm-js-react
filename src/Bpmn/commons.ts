@@ -33,15 +33,18 @@ export class BpmnInstance {
   readonly bpmnViewer: BaseViewer;
   readonly inputRef: React.RefObject<HTMLInputElement>;
   readonly importXmlFunc: (xml?: string | null) => Promise<UseImportXmlResult>;
+  readonly containerRef: React.RefObject<HTMLDivElement>;
 
   constructor(
     bpmnViewer: BaseViewer,
     inputRef: React.RefObject<HTMLInputElement>,
     importXmlFunc: (xml?: string | null) => Promise<UseImportXmlResult>,
+    containerRef: React.RefObject<HTMLDivElement>,
   ) {
     this.bpmnViewer = bpmnViewer;
     this.inputRef = inputRef;
     this.importXmlFunc = importXmlFunc;
+    this.containerRef = containerRef;
   }
 
   getProcessName() {

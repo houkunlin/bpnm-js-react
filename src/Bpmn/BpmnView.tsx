@@ -57,7 +57,8 @@ const Bpmn = forwardRef<
   const doImportXml = useImportXml(bpmnViewer, theProps);
 
   const bpmnInstance = useMemo(
-    () => new BpmnInstance(bpmnViewer, dataOpenFileRef, doImportXml),
+    () =>
+      new BpmnInstance(bpmnViewer, dataOpenFileRef, doImportXml, canvasDivRef),
     [bpmnViewer],
   );
 
@@ -88,9 +89,7 @@ const Bpmn = forwardRef<
     bpmnViewer.on('commandStack.changed', exportArtifacts);
 
     return () => {
-      bpmnViewer.clear();
-      // bpmnViewer.detach();
-      bpmnViewer.destroy();
+      bpmnViewer.detach();
     };
   }, []);
 
