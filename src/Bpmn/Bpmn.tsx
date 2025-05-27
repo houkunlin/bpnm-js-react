@@ -141,7 +141,7 @@ const Bpmn = forwardRef<
     );
 
     const buttons = canvasDivRef.current!.getElementsByTagName('button');
-    console.log(buttons);
+    // console.log(buttons);
     for (let button of buttons) {
       button.addEventListener(
         'click',
