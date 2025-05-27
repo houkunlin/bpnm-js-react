@@ -22,3 +22,11 @@
 #helper-svg {
   position: fixed;
 }
+
+
+.djs-container {
+  > svg {
+    /* 修复 SVG 聚焦时出现黑边问题 */
+    outline: none;
+  }
+}

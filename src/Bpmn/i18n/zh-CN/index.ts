@@ -64,10 +64,10 @@ export default {
   'In mappings': '输入映射',
   'In mapping propagation': 'In mapping propagation',
   'Job execution': '作业执行',
-  'Asynchronous continuations': 'Asynchronous continuations',
+  'Asynchronous continuations': '异步延续',
   'Called element': 'Called element',
   Condition: '条件',
-  'Start initiator': 'Start initiator',
+  'Start initiator': '启动发起者',
   'Task listeners': '任务侦听器',
   'Form fields': '表单字段',
   'User assignment': '用户分配',
@@ -250,4 +250,5 @@ export default {
   'Map entries': 'Map entries',
   'List values': 'List values',
   'Process variable name': '流程变量名称',
+  'This maps to the process definition key.': '这映射到流程定义键',
 } as Record<string, string>;
