@@ -14,8 +14,8 @@ import React, {
 // @ts-ignore
 import EmbeddedComments from 'bpmn-js-embedded-comments';
 import classNames from 'classnames';
-import { debounce, isNil, omit, pick } from 'lodash';
-import { useImportXml } from '../utils';
+import { debounce, omit, pick } from 'lodash';
+import { isNil, useImportXml } from '../utils';
 import BpmnToolBar from './BpmnToolBar';
 import { BpmnInstance, BpmnProps, BpmnPropsKeys } from './commons';
 

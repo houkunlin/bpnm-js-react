@@ -16,10 +16,10 @@ import {
   BpmnInstance,
   BpmnPropsToolBar,
   getDefaultToolBar,
+  isNil,
 } from '@houkunlin/bpmn-js-react';
 import { useFullscreen } from 'ahooks';
 import classNames from 'classnames';
-import { isNil } from 'lodash';
 import React, { useMemo, useState } from 'react';
 import './styles/viewer-toolbar.less';
 

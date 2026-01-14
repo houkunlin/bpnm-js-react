@@ -2,13 +2,13 @@ import {
   buildUrlData,
   download,
   EmptyBpmnXmlDiagram,
+  isNil,
   UseImportXmlResult,
 } from '@houkunlin/bpmn-js-react/utils';
 import BaseViewer, {
   ImportXMLResult,
   SaveXMLOptions,
 } from 'bpmn-js/lib/BaseViewer';
-import { isNil } from 'lodash';
 import React from 'react';
 
 export { default as BaseViewer } from 'bpmn-js/lib/BaseViewer';

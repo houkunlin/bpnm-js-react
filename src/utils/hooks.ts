@@ -5,8 +5,8 @@ import {
 } from '@houkunlin/bpmn-js-react';
 import { useLatest, useMemoizedFn } from 'ahooks';
 import BaseViewer, { ImportXMLResult } from 'bpmn-js/lib/BaseViewer';
-import { isNil } from 'lodash';
 import React, { useEffect } from 'react';
+import { isNil } from './index';
 
 export function useMoveDiv(props: {
   minWidth?: number;

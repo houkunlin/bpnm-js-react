@@ -15,6 +15,15 @@ export const download = (filename: string, urlData: string) => {
   document.body.removeChild(link);
 };
 
+/**
+ * 判断给定值是否为 null 或 undefined
+ * @param value - 待判断的任意值
+ * @returns 当 value 为 null 或 undefined 时返回 true，否则返回 false
+ */
+export function isNil(value: any): value is null | undefined {
+  return value === null || value === undefined;
+}
+
 export const EmptyBpmnXmlDiagram = `
 <?xml version="1.0" encoding="UTF-8"?>
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:modeler="http://camunda.org/schema/modeler/1.0" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.0.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.17.0">

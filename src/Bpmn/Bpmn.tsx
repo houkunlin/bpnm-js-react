@@ -29,8 +29,8 @@ import EmbeddedComments from 'bpmn-js-embedded-comments';
 import { useDeepCompareEffect } from 'ahooks';
 import camundaModdleDescriptors from 'camunda-bpmn-moddle/resources/camunda.json';
 import classNames from 'classnames';
-import { debounce, isNil, omit, pick } from 'lodash';
-import { useImportXml, useMoveDiv } from '../utils';
+import { debounce, omit, pick } from 'lodash';
+import { isNil, useImportXml, useMoveDiv } from '../utils';
 import BpmnToolBar from './BpmnToolBar';
 import {
   BpmnInstance,
