@@ -33,6 +33,10 @@ export default function customTranslate(
   // if (Object.keys(replacement).length > 0) {
   //   console.log('_translate', replacement, `'${template}': '${re}',`);
   // }
+  // 打印未翻译的模板
+  // if (!translations[template]) {
+  //   console.log('_translate', `'${template}': `, `'${re}',`);
+  // }
 
   return re;
 }
