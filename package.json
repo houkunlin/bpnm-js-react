@@ -44,20 +44,20 @@
     ]
   },
   "dependencies": {
-    "@ant-design/icons": "^6.0.0",
-    "@bpmn-io/properties-panel": "^3.27.2",
-    "ahooks": "^3.8.5",
-    "bpmn-js": "^18.6.2",
+    "@ant-design/icons": "^6.1.0",
+    "@bpmn-io/properties-panel": "^3.35.1",
+    "ahooks": "^3.9.6",
+    "bpmn-js": "^18.10.1",
     "bpmn-js-embedded-comments": "^0.7.0",
-    "bpmn-js-properties-panel": "^5.36.1",
-    "bpmn-js-token-simulation": "^0.38.1",
-    "bpmn-moddle": "^9.0.1",
+    "bpmn-js-properties-panel": "^5.46.0",
+    "bpmn-js-token-simulation": "^0.38.2",
+    "bpmn-moddle": "^9.0.4",
     "camunda-bpmn-moddle": "^7.0.1",
-    "classnames": "^2.3.2",
-    "diagram-js": "^15.3.0",
+    "classnames": "^2.5.1",
+    "diagram-js": "^15.5.0",
     "diagram-js-minimap": "^5.2.0",
     "lodash": "^4.17.21",
-    "react-dev-inspector": "^2.0.0"
+    "react-dev-inspector": "^2.0.1"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",
